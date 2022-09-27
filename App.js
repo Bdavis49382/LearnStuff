@@ -1,29 +1,21 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import Home from './Home';
 import Menu from './Menu';
 import Flashcards from './Flashcards';
+import vocabSets from './vocabSets.json';
 
-const vocabSets = {
-  anatomy:[
-    {
-      term:"mV",
-      definition:"milliVolt"
-    },
-    {
-      term:"OH-",
-      definition:"hydroxide"
-    },
-    {
-      term:"ab-",
-      definition:"away from"
-    }
-  ]
-}
 export default function App() {
   const [vocabSet,setVocabSet] = useState('');
   const [activity,setActivity] = useState('');
+
+  // useEffect(async () => {
+  //   prom = await fetch('./vocabSets.json');
+  //   data = prom.text();
+  //   console.log(data);
+  // },[])
   
+   
   if(vocabSet === '') {
     return (
         <Home containerStyle={styles.container} vocabSets={vocabSets} setVocabSet={setVocabSet}/>

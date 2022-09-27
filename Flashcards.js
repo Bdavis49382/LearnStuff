@@ -1,9 +1,16 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Pressable, StyleSheet, Text, View, Button} from 'react-native';
 
 function Flashcards({vocab, containerStyle, setActivity}) {
     const [currentIndex,setCurrentIndex] = useState(0);
     const [side,setSide] = useState('term');
+    const [running,setRunning] = useState(false);
+    const [correctWords,setCorrectWords] = useState([]);
+    const [incorrectWords,setIncorrectWords] = useState([]);
+    useEffect(() => {
+        vocab.sort((a,b) => 0.5-Math.random());
+
+    },[]);
     const flipSide = () => {
         setSide(oldSide => oldSide == 'term'?'definition':'term');
     }
@@ -13,20 +20,40 @@ function Flashcards({vocab, containerStyle, setActivity}) {
             setSide('term');
         }
         else {
-            setActivity('');
+            setRunning(false);
         }
+    }
+    const guessedCorrect = (e) => {
+
+        setCorrectWords(oldWords => [...oldWords, vocab[currentIndex] ]);
+        nextIndex();
+    }
+    const guessedIncorrect = () => {
+        setIncorrectWords(oldWords => [...oldWords, vocab[currentIndex]]);
+        nextIndex();
     }
    return(
     <View style={containerStyle}>
-        <Pressable onPress={flipSide} hitSlop={200}>
-            <Text>{vocab[currentIndex][side]}</Text>
-        </Pressable>
-        {side == 'definition' && (
-        <View style={{marginTop:30}}>
-            <Button title="Got it!" onPress={nextIndex}/>
-            <Button title="Needs work." onPress={nextIndex} />
-        </View>
-    )}
+        {running ? <View>
+
+            <Pressable onPress={flipSide} hitSlop={200}>
+                <Text>{vocab[currentIndex][side]}</Text>
+            </Pressable>
+            {side == 'definition' && (
+                <View style={{marginTop:30}}>
+                    <Button title="Got it!" onPress={guessedCorrect}/>
+                    <Button title="Needs work." onPress={guessedIncorrect} />
+                </View>
+            )}
+        </View> :
+        <View>
+            {incorrectWords.length == 0 && correctWords.length == 0 ?<Button title="start" onPress={() => setRunning(true)}/> : (
+                <View>
+                    <Text>Incorrect Words:</Text>
+                    {incorrectWords.map(word => <Text key={word.term}>{word.term}</Text>)}
+                    <Button title="Leave" onPress={() => setActivity('')}/>
+                </View>  )}
+        </View>}
     </View>
    ) 
 }
