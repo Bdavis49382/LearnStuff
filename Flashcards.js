@@ -45,11 +45,12 @@ function Flashcards({vocab, containerStyle, setActivity}) {
                     <Button title="Needs work." onPress={guessedIncorrect} />
                 </View>
             )}
+            <Button title="leave" onPress={() => setActivity('')} />
         </View> :
         <View>
             {incorrectWords.length == 0 && correctWords.length == 0 ?<Button title="start" onPress={() => setRunning(true)}/> : (
                 <View>
-                    <Text>Incorrect Words:</Text>
+                    <Text>Words that need work:</Text>
                     {incorrectWords.map(word => <Text key={word.term}>{word.term}</Text>)}
                     <Button title="Leave" onPress={() => setActivity('')}/>
                 </View>  )}
