@@ -75,6 +75,8 @@
 ],
 "tester":[
     {"term": "uh huh","definition": "yes"},
-    {"term": "uh uh","definition": "no"}
+    {"term": "uh uh","definition": "no"},
+    {"term": "huh?", "definition":"what?"},
+    {"term": "nah", "definition": "no"}
 ]
 }

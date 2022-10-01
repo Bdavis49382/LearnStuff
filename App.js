@@ -5,6 +5,7 @@ import Menu from './Menu';
 import Flashcards from './Flashcards';
 import vocabSets from './vocabSets.json';
 import FillIn from './FillIn';
+import GameScreen from './GameScreen';
 
 export default function App() {
   const [vocabSet,setVocabSet] = useState('');
@@ -25,12 +26,9 @@ export default function App() {
   else if(activity === '') {
     return <Menu containerStyle={styles.container} setVocabSet={setVocabSet} vocabSet={vocabSet} setActivity={setActivity}/>
   }
-  else if(activity === 'flashcards'.toUpperCase()) {
-    return <Flashcards setActivity={setActivity} containerStyle={styles.container} vocab={vocabSets[vocabSet.toLowerCase()]}/>
-  }
-  else if(activity === 'fill in the blank'.toUpperCase()) {
-    return <FillIn setActivity={setActivity} containerStyle={styles.container} vocab={vocabSets[vocabSet.toLowerCase()]}/>
-  }
+  else {
+    return <GameScreen setActivity={setActivity} containerStyle={styles.container} vocab={vocabSets[vocabSet.toLowerCase()]} activity={activity}/>
+  } 
 
 }
 

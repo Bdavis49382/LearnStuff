@@ -8,6 +8,7 @@ function Menu({setActivity, containerStyle, vocabSet, setVocabSet}) {
     <View style={containerStyle}>
         <Text>{vocabSet}</Text>
         <Text>Select Activity</Text>
+        <Button title="Quiz" onPress={changeActivity}/>
         <Button title="flashcards" onPress={changeActivity}/>
         <Button title="fill in the blank" onPress={changeActivity}/>
         <Button title="Back to vocab sets" onPress={() => setVocabSet('')}/>
