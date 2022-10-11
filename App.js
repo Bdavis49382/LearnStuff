@@ -2,14 +2,14 @@ import { useEffect, useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import Home from './Home';
 import Menu from './Menu';
-import Flashcards from './Flashcards';
 import vocabSets from './vocabSets.json';
-import FillIn from './FillIn';
 import GameScreen from './GameScreen';
+import EditSets from './EditSets';
 
 export default function App() {
   const [vocabSet,setVocabSet] = useState('');
   const [activity,setActivity] = useState('');
+  const [editor,setEditor] = useState(false);
 
   // useEffect(async () => {
   //   prom = await fetch('./vocabSets.json');
@@ -19,9 +19,12 @@ export default function App() {
   
    
   if(vocabSet === '') {
-    return (
-        <Home containerStyle={styles.container} vocabSets={vocabSets} setVocabSet={setVocabSet}/>
-    );
+    if(!editor) {
+      return (
+          <Home containerStyle={styles.container} setEditor={setEditor} vocabSets={vocabSets} setVocabSet={setVocabSet}/>
+      );
+    }
+    return <EditSets containerStyle={styles.container} setEditor={setEditor}/>
   }
   else if(activity === '') {
     return <Menu containerStyle={styles.container} setVocabSet={setVocabSet} vocabSet={vocabSet} setActivity={setActivity}/>
