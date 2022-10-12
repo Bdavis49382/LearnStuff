@@ -8,8 +8,8 @@ function Home({containerStyle, vocabSets, setVocabSet, setEditor}) {
         <View style={containerStyle}>
             <Text>Welcome to LearnStuff!</Text>
             <Text>Please Select a Vocab Set</Text>
-            {Object.keys(vocabSets).map(key => <Button key={key} title={key} onPress={changeVocabSet}/>)}
-            <Button title="Add new vocab set" onPress={() => setEditor(true)}/>
+            {vocabSets.map(set => <Button key={set.id} title={set.name} onPress={changeVocabSet}/>)}
+            <Button title="Add new vocab set" onPress={() => setEditor('add')}/>
         </View>
     )
 }

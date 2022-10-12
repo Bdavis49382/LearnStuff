@@ -1,10 +1,18 @@
 import { useEffect, useState } from 'react';
 import { StyleSheet, Text, View, Button, TextInput, ScrollView} from 'react-native';
 
-function EditSets({containerStyle, setEditor}) {
+function EditSets({vocabSets, vocabSet, setsRef, containerStyle, setEditor, editor}) {
     const [name, setName] = useState('');
     const [message, setMessage] = useState('');
-    const [words, setWords] = useState([{term: '',definition: ''},{term: '',definition: ''},{term: '',definition: ''}]);
+    const [words, setWords] = useState([]);
+
+    useEffect(() => {
+        if(editor == 'edit') {
+            const oldVocabSet = vocabSets.filter((set) => set.name.toUpperCase() == vocabSet.toUpperCase())[0];
+            setName(oldVocabSet.name);
+            setWords(oldVocabSet.words);
+        }
+    },[])
 
     const validate = () => {
         if(name.length == 0) {
@@ -14,7 +22,31 @@ function EditSets({containerStyle, setEditor}) {
             setMessage("Your vocab set must have at least one defined term!")
         }
         else {
-            setEditor(false);
+            if(editor == 'edit') {
+
+                const id = vocabSets.filter((set) => set.name.toUpperCase() == vocabSet.toUpperCase())[0].id;
+                setsRef
+                    .doc(id)
+                    .delete()
+                    .then(() => {
+                    })
+                    .catch(error => {
+                    alert(error);
+                    })
+
+            }
+            const data = {name,words}
+            setsRef
+            .add(data)
+            .then(() => {
+                setName('');
+                setWords([]);
+            })
+            .catch(error => {
+                alert(error);
+            })
+
+            setEditor('no');
         }
 
     }
@@ -28,9 +60,9 @@ function EditSets({containerStyle, setEditor}) {
 
     }
     return (
-        <View style={{...containerStyle,marginTop:100}}>
-            <TextInput placeholder='Enter Name' onChangeText={(text) => setName(text)}></TextInput>
-            <ScrollView>
+        <View style={{...containerStyle,marginTop:50}}>
+            <TextInput placeholder='Enter Name' value={name} onChangeText={(text) => setName(text)}></TextInput>
+            <ScrollView style={{padding:0,marginBottom:50,maxHeight:200}}>
                 {words.map((word,index) => (
                     <View key={index}>
                         <TextInput placeholder="Enter term" value={word.term} onChangeText={(text) => changeWord(index,text,'term')}></TextInput>
@@ -38,8 +70,11 @@ function EditSets({containerStyle, setEditor}) {
                     </View>
                 ))}
             </ScrollView>
+            <Button title="Add a term" onPress={() => setWords(oldWords => [...oldWords,{term: '',definition: ''}])} />
+            <Button title="Remove last term" onPress={() => setWords(oldWords => oldWords.slice(0,-1))} />
             <Button title="Submit" onPress={validate} />
             <Text style={{color: 'red'}}>{message}</Text>
+            <Button title="Leave without saving" onPress={() => setEditor('no')} />
         </View>
     )
 
