@@ -10,6 +10,7 @@ UPDATE:
 Now the app has been integrated with a firestore database so that the user can insert new vocab sets to study from, as well as editing and deleting those sets!
 
 [Software Demo Video and Code Walkthrough](https://youtu.be/VWkQ1KRstiA)
+
 [Firebase Implementation Demo and Code Walkthrough](https://youtu.be/toyIgw0fv4s)
 
 # Development Environment
