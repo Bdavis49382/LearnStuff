@@ -3,12 +3,10 @@ import { Pressable, StyleSheet, Text, View, Button} from 'react-native';
 
 function Flashcards({vocab, setStage, containerStyle, setActivity,side, flipSide, currentIndex,guessedCorrect}) {
    return(
-    <View style={containerStyle}>
-        <View>
+    <View style={{ ...containerStyle,justifyContent:'space-evenly' }}>
 
-            <Pressable onPress={flipSide} hitSlop={200}>
+            <Pressable onPress={flipSide} hitSlop={200} style={{alignItems:'center'}}>
                 <Text>{vocab[currentIndex][side]}</Text>
-            </Pressable>
             {side == 'definition' ? (
                 <View style={{marginTop:30}}>
                     <Button title="Got it!" onPress={() => guessedCorrect(true)}/>
@@ -16,10 +14,12 @@ function Flashcards({vocab, setStage, containerStyle, setActivity,side, flipSide
                 </View>
             ) : 
             <View>
-               <Text>Tap anywhere to see definition</Text> 
+               <Text style={{color:'gray'}}>Tap anywhere to see definition</Text> 
             </View>}
-            <Button title="leave" onPress={() => setStage(2)} />
-        </View> 
+            </Pressable>
+            <View>
+                <Button title="leave" color='red' onPress={() => setStage(2)} />
+            </View>
     </View>
    ) 
 }

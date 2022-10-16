@@ -16,7 +16,7 @@ function FillIn({message, setMessage, currentIndex, containerStyle, vocab, setSt
         }
     }
     return (
-        <View style={containerStyle}>
+        <View style={{ ...containerStyle, justifyContent:'space-evenly' }}>
             <View>
                 <Text>{vocab[currentIndex]['definition']}</Text>
                 <TextInput 
@@ -30,8 +30,8 @@ function FillIn({message, setMessage, currentIndex, containerStyle, vocab, setSt
                 {message === 'try again' && <Button title="I give up" onPress={() => guessedCorrect(false)}/>}
                 <Text>{message}</Text>
                 {message === 'that is correct!' && <Button title="next word" onPress={() => guessedCorrect(true)}/>}
-                <Button title="leave" onPress={() => setStage(2)} />
             </View> 
+                <Button title="leave" onPress={() => setStage(2)} color="red"/>
         </View>
      );
 }

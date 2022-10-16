@@ -61,18 +61,21 @@ function EditSets({vocabSets, vocabSet, styles, setsRef, containerStyle, setEdit
         })
 
     }
+    const newTerm = () => {
+        setWords(oldWords => [...oldWords,{term: '',definition: ''}]);
+    }
     return (
         <View style={{...containerStyle}}>
             <View style={{...containerStyle,width:'90%',margin:20,backgroundColor: '#AC9572'}}>
                 <TextInput placeholder='Enter Name' value={name} onChangeText={(text) => setName(text)}></TextInput>
                 <ScrollView style={{padding:0,marginBottom:50,maxHeight:200,backgroundColor: '#AC9572'}}>
                     {words.map((word,index) => (
-                        <Word key={index} index={index} word={word} changeWord={changeWord}/>
+                        <Word key={index} newTerm={newTerm} index={index} word={word} changeWord={changeWord}/>
                     ))}
                 </ScrollView>
             </View>
             <View style={{flexDirection:'row'}}>
-                <Button title="Add a term" onPress={() => setWords(oldWords => [...oldWords,{term: '',definition: ''}])} />
+                <Button title="Add a term" onPress={newTerm} />
                 <Button title="Remove last term" onPress={() => setWords(oldWords => oldWords.slice(0,-1))} />
                 <Button title="Submit" onPress={validate} />
             </View>

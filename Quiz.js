@@ -28,9 +28,21 @@ function Quiz({setStage, message, vocab, guessedCorrect, currentIndex, container
         <View style={containerStyle}>
 
             <Text>{vocab[currentIndex].definition}</Text>
-            {answers.map((answer) => <Button key={answer.word.term} title={answer.word.term} onPress={() => guessedCorrect(answer.correct)} />)}
-            <Button title="leave" onPress={() => setStage(2)} />
+            <View style={{flexDirection:'row',flexWrap:'wrap',alignItems:'center',justifyContent:'center'}}>
+
+                {answers.map(
+                    (answer) => 
+                                (
+                                <View style={{width:150}}>
+                                    <Button 
+                                        key={answer.word.term} 
+                                        title={answer.word.term} 
+                                        onPress={() => guessedCorrect(answer.correct)} />
+                                </View> 
+                                    ))}
+            </View>
             <Text>{message}</Text>            
+            <Button title="leave" onPress={() => setStage(2)} color='red'/>
 
         </View>
     )

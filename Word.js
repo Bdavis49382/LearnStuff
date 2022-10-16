@@ -1,5 +1,5 @@
 import {View, TextInput, Text} from 'react-native';
-function Word({index, word, changeWord}) {
+function Word({newTerm, index, word, changeWord}) {
     return (
         <View styles={
             {flex: 1, 
@@ -20,6 +20,7 @@ function Word({index, word, changeWord}) {
                 placeholder="Enter definition" 
                 onChangeText={(text) => changeWord(index,text,'definition')} 
                 value={word.definition}
+                onSubmitEditing={newTerm}
                 />
         </View>
         
