@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react';
 import { StyleSheet, Text, View, Button, TextInput, ScrollView} from 'react-native';
+import Word from './Word';
 
-function EditSets({vocabSets, vocabSet, setsRef, containerStyle, setEditor, editor}) {
+function EditSets({vocabSets, vocabSet, styles, setsRef, containerStyle, setEditor, editor}) {
+    const {container, titleText, messageText} = styles;
     const [name, setName] = useState('');
     const [message, setMessage] = useState('');
     const [words, setWords] = useState([]);
@@ -60,21 +62,22 @@ function EditSets({vocabSets, vocabSet, setsRef, containerStyle, setEditor, edit
 
     }
     return (
-        <View style={{...containerStyle,marginTop:50}}>
-            <TextInput placeholder='Enter Name' value={name} onChangeText={(text) => setName(text)}></TextInput>
-            <ScrollView style={{padding:0,marginBottom:50,maxHeight:200}}>
-                {words.map((word,index) => (
-                    <View key={index}>
-                        <TextInput placeholder="Enter term" value={word.term} onChangeText={(text) => changeWord(index,text,'term')}></TextInput>
-                        <TextInput placeholder="Enter definition" onChangeText={(text) => changeWord(index,text,'definition')} value={word.definition}></TextInput>
-                    </View>
-                ))}
-            </ScrollView>
-            <Button title="Add a term" onPress={() => setWords(oldWords => [...oldWords,{term: '',definition: ''}])} />
-            <Button title="Remove last term" onPress={() => setWords(oldWords => oldWords.slice(0,-1))} />
-            <Button title="Submit" onPress={validate} />
+        <View style={{...containerStyle}}>
+            <View style={{...containerStyle,width:'90%',margin:20,backgroundColor: '#AC9572'}}>
+                <TextInput placeholder='Enter Name' value={name} onChangeText={(text) => setName(text)}></TextInput>
+                <ScrollView style={{padding:0,marginBottom:50,maxHeight:200,backgroundColor: '#AC9572'}}>
+                    {words.map((word,index) => (
+                        <Word key={index} index={index} word={word} changeWord={changeWord}/>
+                    ))}
+                </ScrollView>
+            </View>
+            <View style={{flexDirection:'row'}}>
+                <Button title="Add a term" onPress={() => setWords(oldWords => [...oldWords,{term: '',definition: ''}])} />
+                <Button title="Remove last term" onPress={() => setWords(oldWords => oldWords.slice(0,-1))} />
+                <Button title="Submit" onPress={validate} />
+            </View>
             <Text style={{color: 'red'}}>{message}</Text>
-            <Button title="Leave without saving" onPress={() => setEditor('no')} />
+            <Button color="red" title="Leave without saving" onPress={() => setEditor('no')} />
         </View>
     )
 

@@ -38,11 +38,11 @@ export default function App() {
    
   if(vocabSet === '' && editor == 'no') {
     return (
-        <Home containerStyle={styles.container} setEditor={setEditor} vocabSets={vocabSets} setVocabSet={setVocabSet}/>
+        <Home styles={styles} setEditor={setEditor} vocabSets={vocabSets} setVocabSet={setVocabSet}/>
     );
   }
   else if(editor != 'no') {
-    return <EditSets editor={editor} vocabSets={vocabSets} vocabSet={vocabSet} setEditor={setEditor} setVocabSet={setVocabSet} setsRef={setsRef} containerStyle={styles.container} />
+    return <EditSets styles={styles} editor={editor} vocabSets={vocabSets} vocabSet={vocabSet} setEditor={setEditor} setVocabSet={setVocabSet} setsRef={setsRef} containerStyle={styles.container} />
 
   }
   else if(activity === '') {
@@ -57,8 +57,18 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#C3B299',
     alignItems: 'center',
     justifyContent: 'center',
   },
+  titleText: {
+    fontSize: 20,
+    color: '#54442B',
+    margin: 50
+  },
+  messageText: {
+    fontSize: 15,
+    color: '#54442B',
+    marginBottom: 20
+  }
 });

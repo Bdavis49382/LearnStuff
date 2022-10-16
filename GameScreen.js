@@ -61,7 +61,7 @@ function GameScreen({vocab, containerStyle, activity, setActivity}) {
         return (
         <View style={containerStyle}>
             <Text>Words that need work:</Text>
-            {incorrectWords.map(word => <Text key={word.term}>{word.term} / {word.definition}</Text>)}
+            {incorrectWords.length>0 ?incorrectWords.map(word => <Text key={word.term}>{word.term} / {word.definition}</Text>): <Text>None. Good job!</Text>}
             <Button title="Leave" onPress={() => setActivity('')}/>
         </View>)
     }

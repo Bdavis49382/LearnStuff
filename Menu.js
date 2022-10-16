@@ -11,10 +11,13 @@ function Menu({setActivity, containerStyle, vocabSet, setVocabSet, setEditor}) {
         <Button title="Quiz" onPress={changeActivity}/>
         <Button title="flashcards" onPress={changeActivity}/>
         <Button title="fill in the blank" onPress={changeActivity}/>
-        <Button title="edit vocab set" onPress={() => {
-            setEditor('edit');
-        }} />
         <Button title="Back to vocab sets" onPress={() => setVocabSet('')}/>
+        <View style={{marginTop:10}}>
+            <Button title="edit vocab set" color={'orange'} onPress={() => {
+                setEditor('edit');
+            }} />
+            {/* <Button title="Delete Vocab Set" color={'red'}/> */}
+        </View>
     </View>
     )
 }
