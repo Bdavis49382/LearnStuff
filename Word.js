@@ -6,7 +6,8 @@ function Word({newTerm, index, word, changeWord}) {
             flexDirection:'row',
             alignItems:'center',
             justifyContent:'center',
-            width:100}}>
+            width:100,
+            marginBottom: 10}}>
             <TextInput 
                 style={{width:200}}
                 maxLength={40} 

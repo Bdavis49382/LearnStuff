@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { StyleSheet, Text, View, Button, TextInput, ScrollView} from 'react-native';
 import Word from './Word';
 
-function EditSets({vocabSets, vocabSet, styles, setsRef, containerStyle, setEditor, editor}) {
+function EditSets({vocabSets, vocabSet, user, styles, setsRef, containerStyle, setEditor, editor}) {
     const {container, titleText, messageText} = styles;
     const [name, setName] = useState('');
     const [message, setMessage] = useState('');
@@ -37,7 +37,7 @@ function EditSets({vocabSets, vocabSet, styles, setsRef, containerStyle, setEdit
                     })
 
             }
-            const data = {name,words}
+            const data = {name,user,words}
             setsRef
             .add(data)
             .then(() => {

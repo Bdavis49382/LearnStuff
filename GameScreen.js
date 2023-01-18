@@ -32,7 +32,7 @@ function GameScreen({vocab, containerStyle, activity, setActivity}) {
     const guessedCorrect = (correct) => {
         if (correct){
             setCorrectWords(oldWords => [...oldWords, vocab[currentIndex] ]);
-            setMessage('that was correct');
+            setMessage('that was correct!');
         }
         else {
             setIncorrectWords(oldWords => [...oldWords, vocab[currentIndex]]);

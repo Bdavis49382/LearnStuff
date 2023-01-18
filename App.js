@@ -4,6 +4,7 @@ import Home from './Home';
 import Menu from './Menu';
 import GameScreen from './GameScreen';
 import EditSets from './EditSets';
+import Login from './Login';
 import { firebase } from './firebase';
 
 export default function App() {
@@ -11,7 +12,10 @@ export default function App() {
   const [activity,setActivity] = useState('');
   const [editor,setEditor] = useState('no');
   const [vocabSets,setVocabSets] = useState([]);
+  const [loggedIn,setLoggedIn] = useState(false);
+  const [user,setUser] = useState('');
   const setsRef = firebase.firestore().collection("vocabSets");
+
 
   useEffect(() => {
         setsRef
@@ -19,25 +23,32 @@ export default function App() {
             querySnapshot => {
                 const vocabSets = [];
                 querySnapshot.forEach((doc) => {
-                    const {name, words} = doc.data()
+                    const {name, words, user} = doc.data()
                     vocabSets.push({
                         id: doc.id,
                         name,
                         words,
+                        user
                     })
                 })
                 setVocabSets(vocabSets);
             }
         )
-  }, []); 
-   
-  if(vocabSet === '' && editor == 'no') {
+  }, [vocabSet]); 
+  if(!loggedIn) {
+    return <Login styles={styles} setLoggedIn={setLoggedIn} setUser={setUser}/>
+  } 
+  else if(vocabSet === '' && editor == 'no') {
     return (
         <Home 
           styles={styles} 
           setEditor={setEditor} 
           vocabSets={vocabSets} 
-          setVocabSet={setVocabSet}/>
+          setVocabSet={setVocabSet}
+          user={user}
+          setUser={setUser}
+          setLoggedIn={setLoggedIn}/>
+
     );
   }
   else if(editor != 'no') {
@@ -50,7 +61,8 @@ export default function App() {
         setEditor={setEditor} 
         setVocabSet={setVocabSet} 
         setsRef={setsRef} 
-        containerStyle={styles.container} />
+        containerStyle={styles.container} 
+        user={user}/>
     )
   }
   else if(activity === '') {
