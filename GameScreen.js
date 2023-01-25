@@ -43,7 +43,8 @@ function GameScreen({vocab, containerStyle, activity, setActivity}) {
     if(stage === 0) {
         return (
             <View style={containerStyle}>
-                <Button title="start" onPress={() => setStage(1)}/>
+                <Button title="start" onPress={() => {
+                    setStage(1);}}/>
             </View>
         )
     }

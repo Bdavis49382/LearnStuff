@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "LearnStuff",
-    "slug": "LearnStuff",
+    "slug": "learnstuffbeta",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -24,10 +24,17 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "package": "com.bdavis49382.testexpo"
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "d30d0c3e-29ad-4e14-9ce0-75d6bf7cc192"
+      }
+    },
+    "owner": "bdavis49382"
   }
 }

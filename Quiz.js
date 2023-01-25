@@ -23,7 +23,6 @@ function Quiz({setStage, message, vocab, guessedCorrect, currentIndex, container
         tempAnswers.sort((a,b) => .5-Math.random());
         setAnswers(tempAnswers);
     }
-
     return (
         <View style={containerStyle}>
 
@@ -31,11 +30,10 @@ function Quiz({setStage, message, vocab, guessedCorrect, currentIndex, container
             <View style={{flexDirection:'row',flexWrap:'wrap',alignItems:'center',justifyContent:'center'}}>
 
                 {answers.map(
-                    (answer) => 
+                    (answer,index) => 
                                 (
-                                <View style={{width:150}}>
+                                <View style={{width:150}} key={index}>
                                     <Button 
-                                        key={answer.word.term} 
                                         title={answer.word.term} 
                                         onPress={() => guessedCorrect(answer.correct)} />
                                 </View> 
