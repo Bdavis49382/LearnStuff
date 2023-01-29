@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { firebase } from './firebase';
 import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword } from "firebase/auth";
 import {View, TextInput, Text, Button} from 'react-native';
-function Login({styles,setLoggedIn,setUser}) {
+function Login({navigation,styles,setLoggedIn,setUser}) {
     const [userName, setUserName] = useState('');
     const [password, setPassword] = useState('');
 
@@ -13,6 +13,8 @@ function Login({styles,setLoggedIn,setUser}) {
             // Signed in 
             setUser(userCredential.user.email);
             setLoggedIn(true);
+            navigation.navigate('Home');
+
             // ...
         })
         .catch((error) => {

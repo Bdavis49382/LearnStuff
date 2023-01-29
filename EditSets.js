@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { StyleSheet, Text, View, Button, TextInput, ScrollView} from 'react-native';
 import Word from './Word';
 
-function EditSets({vocabSets, vocabSet, user, styles, setsRef, containerStyle, setEditor, editor}) {
+function EditSets({navigation,vocabSets, vocabSet, user, styles, setsRef, containerStyle, setEditor, editor}) {
     const {container, titleText, messageText} = styles;
     const [name, setName] = useState('');
     const [message, setMessage] = useState('');
@@ -49,6 +49,7 @@ function EditSets({vocabSets, vocabSet, user, styles, setsRef, containerStyle, s
             })
 
             setEditor('no');
+            navigation.goBack();
         }
 
     }
@@ -80,7 +81,6 @@ function EditSets({vocabSets, vocabSet, user, styles, setsRef, containerStyle, s
                 <Button title="Submit" onPress={validate} />
             </View>
             <Text style={{color: 'red'}}>{message}</Text>
-            <Button color="red" title="Leave without saving" onPress={() => setEditor('no')} />
         </View>
     )
 

@@ -1,8 +1,10 @@
 import {Text, View, Button } from 'react-native';
 
-function Menu({vocabSets, setsRef, setActivity, containerStyle, vocabSet, setVocabSet, setEditor}) {
+function Menu({navigation,vocabSets, setsRef, setActivity, containerStyle, vocabSet, setVocabSet, setEditor}) {
     const changeActivity = (e) => {
-        setActivity(e._dispatchInstances.memoizedProps.children[0].props.children);
+        const selected = e._dispatchInstances.memoizedProps.children[0].props.children;
+        setActivity(selected);
+        navigation.navigate(selected)
     }
     const deleteSet = () => {
         const id = vocabSets.filter((set) => set.name.toUpperCase() == vocabSet.toUpperCase())[0].id;
@@ -29,10 +31,10 @@ function Menu({vocabSets, setsRef, setActivity, containerStyle, vocabSet, setVoc
         <View style={{marginTop:10,marginBottom:60}}>
             <Button title="edit vocab set" color={'orange'} onPress={() => {
                 setEditor('edit');
+                navigation.navigate("EditSets")
             }} />
             <Button title="Delete Vocab Set" color={'red'} onPress={deleteSet} />
         </View>
-        <Button title="Back to vocab sets" onPress={() => setVocabSet('')}/>
     </View>
     )
 }

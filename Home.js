@@ -1,15 +1,20 @@
 import { StyleSheet, Text, View, Button, findNodeHandle } from 'react-native';
 import { getAuth, signOut } from "firebase/auth";
-function Home({setLoggedIn, setUser, styles, vocabSets, setVocabSet, setEditor, user}) {
+function Home({navigation,setLoggedIn,setVocab, setUser, styles, vocabSets, setVocabSet, setEditor, user}) {
     const {container, titleText, messageText} = styles;
     const changeVocabSet = (e) => {
-        setVocabSet(e._dispatchInstances.memoizedProps.children[0].props.children)
+        const selected =e._dispatchInstances.memoizedProps.children[0].props.children; 
+        setVocabSet(selected)
+        setVocab(vocabSets.filter(
+            (set) => set.name.toUpperCase() === selected.toUpperCase())[0].words);
+        navigation.navigate("Menu")
     }
     const logOut = () => {
         const auth = getAuth();
         signOut(auth).then(() => {
          setUser('');
          setLoggedIn(false);
+         navigation.navigate("Login")
         }).catch((error) => {
             alert(error);
         // An error happened.
@@ -27,7 +32,10 @@ function Home({setLoggedIn, setUser, styles, vocabSets, setVocabSet, setEditor, 
                     {vocabSets.map(vocabSet => vocabSet.user == user?<Button key={vocabSet.id} title={vocabSet.name} onPress={changeVocabSet}/>:'')}
                 </View>
                 <Text>Or</Text>
-                <Button color="green" title="Add new vocab set" onPress={() => setEditor('add')}/>
+                <Button color="green" title="Add new vocab set" onPress={() => {
+                    setEditor('add')
+                    navigation.navigate('EditSets')
+                }}/>
         </View>
     )
 }

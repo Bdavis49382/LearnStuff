@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, Button, TextInput } from 'react-native';
-function FillIn({message, setMessage, currentIndex, containerStyle, vocab, setStage, guessedCorrect}) {
+function FillIn({navigation,message, setMessage, currentIndex, containerStyle, vocab, setStage, guessedCorrect}) {
     const [enteredText,setEnteredText] = useState('');
     useEffect(() => {
         setEnteredText('');
@@ -27,11 +27,11 @@ function FillIn({message, setMessage, currentIndex, containerStyle, vocab, setSt
 
                 {message !== 'that is correct!' && <Button title="submit" onPress={handleSubmit}/>}
                 {message !== 'that is correct!' && <Button title="get a hint" onPress={() => setEnteredText(vocab[currentIndex].term.slice(0,2)) }/> }
-                {message === 'try again' && <Button title="I give up" onPress={() => guessedCorrect(false)}/>}
+                {message === 'try again' && <Button title="I give up" onPress={() => guessedCorrect(false,navigation)}/>}
                 <Text>{message}</Text>
-                {message === 'that is correct!' && <Button title="next word" onPress={() => guessedCorrect(true)}/>}
+                {message === 'that is correct!' && <Button title="next word" onPress={() => guessedCorrect(true,navigation)}/>}
             </View> 
-                <Button title="leave" onPress={() => setStage(2)} color="red"/>
+                <Button title="leave" onPress={() => navigation.navigate("Results")} color="red"/>
         </View>
      );
 }

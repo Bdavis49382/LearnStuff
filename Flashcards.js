@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Pressable, StyleSheet, Text, View, Button} from 'react-native';
 
-function Flashcards({vocab, setStage, containerStyle, setActivity,side, flipSide, currentIndex,guessedCorrect}) {
+function Flashcards({navigation,vocab, setStage, containerStyle, setActivity,side, flipSide, currentIndex,guessedCorrect}) {
    return(
     <View style={{ ...containerStyle,justifyContent:'space-evenly' }}>
 
@@ -9,8 +9,8 @@ function Flashcards({vocab, setStage, containerStyle, setActivity,side, flipSide
                 <Text>{vocab[currentIndex][side]}</Text>
             {side == 'definition' ? (
                 <View style={{marginTop:30}}>
-                    <Button title="Got it!" onPress={() => guessedCorrect(true)}/>
-                    <Button title="Needs work." onPress={() => guessedCorrect(false)} />
+                    <Button title="Got it!" onPress={() => guessedCorrect(true,navigation)}/>
+                    <Button title="Needs work." onPress={() => guessedCorrect(false,navigation)} />
                 </View>
             ) : 
             <View>
@@ -18,7 +18,7 @@ function Flashcards({vocab, setStage, containerStyle, setActivity,side, flipSide
             </View>}
             </Pressable>
             <View>
-                <Button title="leave" color='red' onPress={() => setStage(2)} />
+                <Button title="leave" color='red' onPress={() => navigation.navigate("Results")} />
             </View>
     </View>
    ) 
