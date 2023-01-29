@@ -1,8 +1,9 @@
 import {Text, View, Button } from 'react-native';
 
-function Menu({navigation,vocabSets, setsRef, setActivity, containerStyle, vocabSet, setVocabSet, setEditor}) {
+function Menu({navigation,vocabSets, setCurrentIndex,setsRef, setActivity, containerStyle, vocabSet, setVocabSet, setEditor}) {
     const changeActivity = (selected) => {
         setActivity(selected);
+        setCurrentIndex(0);
         navigation.navigate(selected)
     }
     const deleteSet = () => {

@@ -38,8 +38,6 @@ export default function App() {
       }
       else {
           navigation.navigate("Results");
-          setActivity('');
-          
       }
   }
   const guessedCorrect = (correct,navigation) => {
@@ -77,6 +75,7 @@ export default function App() {
       setIncorrectWords([]);
       setCurrentIndex(0);
       setSide("term");
+      setMessage("Guess the term!");
   },[activity]);
   return (
     <NavigationContainer>
@@ -119,6 +118,7 @@ export default function App() {
           {(props) => 
           <Menu 
             {...props}
+            setCurrentIndex={setCurrentIndex}
             setEditor={setEditor} 
             containerStyle={styles.container} 
             vocabSets={vocabSets} 

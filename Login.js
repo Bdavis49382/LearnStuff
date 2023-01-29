@@ -3,12 +3,12 @@ import { firebase } from './firebase';
 import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword } from "firebase/auth";
 import {View, TextInput, Text, Button} from 'react-native';
 function Login({navigation,styles,setUser}) {
-    const [userName, setUserName] = useState('');
+    const [username, setUserName] = useState('');
     const [password, setPassword] = useState('');
 
     const submit = () => {
         const auth = getAuth();
-        signInWithEmailAndPassword(auth, userName, password)
+        signInWithEmailAndPassword(auth, username.trim(), password)
         .then((userCredential) => {
             // Signed in 
             setUser(userCredential.user.email);
@@ -18,34 +18,23 @@ function Login({navigation,styles,setUser}) {
         })
         .catch((error) => {
             alert(error);
-            const errorCode = error.code;
-            const errorMessage = error.message;
+            // const errorCode = error.code;
+            // const errorMessage = error.message;
             // ..
         });
-        // firebase.auth().signInWithEmailAndPassword(userName,password)
-        //     .then((response) => {
-        //         const uid = response.user.uid;
-        //         console.log(uid)
-        //         const usersRef = firebase.firestore().collection('users');
-        //         usersRef
-        //             .doc(uid)
-        //             .get()
-        //             .then(firestoreDocument => {
-        //                 if (!firestoreDocument.exists) {
-        //                     alert("User does not exist.")
-        //                     return;
-        //                 }
-        //                 const user = firestoreDocument.data()
-        //                 setUser(user);
-
-        //             })
-        //             .catch(error => {
-        //                 alert(error)
-        //             });
-        //     })
-        //     .catch(error => {
-        //         alert(error)
-        //     })
+        setPassword('');
+        setUserName('');
+    }
+    const create = () => {
+        const auth = getAuth();
+        createUserWithEmailAndPassword(auth, username.trim(), password)
+        .then((userCredential) => {
+            setUser(userCredential.user.email);
+            navigation.navigate("Home");
+        })
+        .catch((error) => {
+            alert(error);
+        })
         setPassword('');
         setUserName('');
     }
@@ -55,7 +44,7 @@ function Login({navigation,styles,setUser}) {
                 <TextInput 
                     placeholder='Email'
                     onChangeText={(text) => setUserName(text)}
-                    value= {userName} 
+                    value= {username} 
                     onSubmitEditing={submit}
                     />
                 <Text>Enter Password</Text>
@@ -66,7 +55,8 @@ function Login({navigation,styles,setUser}) {
                     secureTextEntry={true}
                     onSubmitEditing={submit}
                     />
-                <Button title="submit" onPress={submit}/>
+                <Button title="Log in" onPress={submit}/>
+                <Button title="Create New Account" onPress={create}/>
         </View>
         
     )
