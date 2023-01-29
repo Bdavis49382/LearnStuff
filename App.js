@@ -124,7 +124,7 @@ export default function App() {
             setActivity={setActivity}/>
           }
         </Stack.Screen>
-        <Stack.Screen name="FLASHCARDS" options = {{title:"Flashcards"}}>
+        <Stack.Screen name="flashcards" options = {{title:"Flashcards"}}>
           {(props) => 
             <Flashcards 
               {...props}
@@ -143,7 +143,7 @@ export default function App() {
             <Results {...props} containerStyle={styles.container} correctWords={correctWords} incorrectWords={incorrectWords} />
           }
         </Stack.Screen>
-        <Stack.Screen name="FILL IN THE BLANK" options = {{title:"Fill in the Blank"}}>
+        <Stack.Screen name="fill IN THE BLANK" options = {{title:"Fill in the Blank"}}>
           {(props) => 
            <FillIn
               {...props}
@@ -158,7 +158,7 @@ export default function App() {
 
           }
         </Stack.Screen>
-        <Stack.Screen name="QUIZ" options = {{title:"Quiz"}}>
+        <Stack.Screen name="quiz" options = {{title:"Quiz"}}>
           {(props) => 
             <Quiz
               {...props}

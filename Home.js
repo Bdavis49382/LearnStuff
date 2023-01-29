@@ -1,9 +1,9 @@
-import { StyleSheet, Text, View, Button, findNodeHandle } from 'react-native';
+import { StyleSheet, Text, View, Button} from 'react-native';
 import { getAuth, signOut } from "firebase/auth";
 function Home({navigation,setLoggedIn,setVocab, setUser, styles, vocabSets, setVocabSet, setEditor, user}) {
     const {container, titleText, messageText} = styles;
-    const changeVocabSet = (e) => {
-        const selected =e._dispatchInstances.memoizedProps.children[0].props.children; 
+    const changeVocabSet = (selected) => {
+        // const selected =e._dispatchInstances.memoizedProps.children[0].props.children; 
         setVocabSet(selected)
         setVocab(vocabSets.filter(
             (set) => set.name.toUpperCase() === selected.toUpperCase())[0].words);
@@ -29,7 +29,7 @@ function Home({navigation,setLoggedIn,setVocab, setUser, styles, vocabSets, setV
                 <Text style={titleText}>Welcome to LearnStuff {user}!</Text>
                 <Text style={messageText}>Please Select a Vocab Set</Text>
                 <View style={{marginBottom:10}}>
-                    {vocabSets.map(vocabSet => vocabSet.user == user?<Button key={vocabSet.id} title={vocabSet.name} onPress={changeVocabSet}/>:'')}
+                    {vocabSets.map((vocabSet) => vocabSet.user == user?<Button key={vocabSet.id} title={vocabSet.name} onPress={() => changeVocabSet(vocabSet.name)}/>:'')}
                 </View>
                 <Text>Or</Text>
                 <Button color="green" title="Add new vocab set" onPress={() => {

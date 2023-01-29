@@ -9,7 +9,7 @@ function Quiz({navigation,setStage, message, vocab, guessedCorrect, currentIndex
         const tempAnswers = [{word:vocab[currentIndex],correct:true}];
         let usedIndexes = [currentIndex];
         if (vocab.length < 4) {
-            console.log("Set too small")
+            alert("Set too small for this activity.")
             navigation.navigate("Menu")
         }
         else {

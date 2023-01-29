@@ -1,8 +1,7 @@
 import {Text, View, Button } from 'react-native';
 
 function Menu({navigation,vocabSets, setsRef, setActivity, containerStyle, vocabSet, setVocabSet, setEditor}) {
-    const changeActivity = (e) => {
-        const selected = e._dispatchInstances.memoizedProps.children[0].props.children;
+    const changeActivity = (selected) => {
         setActivity(selected);
         navigation.navigate(selected)
     }
@@ -17,6 +16,7 @@ function Menu({navigation,vocabSets, setsRef, setActivity, containerStyle, vocab
             alert(error);
             });
         setVocabSet(''); 
+        navigation.navigate("Home");
     }
     return (
     <View style={containerStyle}>
@@ -24,9 +24,9 @@ function Menu({navigation,vocabSets, setsRef, setActivity, containerStyle, vocab
         <Text>Select Activity</Text>
         <View style={{marginTop:10,marginBottom:10}}>
 
-        <Button title="Quiz" onPress={changeActivity}/>
-        <Button title="flashcards" onPress={changeActivity}/>
-        <Button title="fill in the blank" onPress={changeActivity}/>
+        <Button title="Quiz" onPress={() => changeActivity("quiz")}/>
+        <Button title="flashcards" onPress={() => changeActivity("flashcards")}/>
+        <Button title="fill in the blank" onPress={() => changeActivity("fill in the blank")}/>
         </View>
         <View style={{marginTop:10,marginBottom:60}}>
             <Button title="edit vocab set" color={'orange'} onPress={() => {
