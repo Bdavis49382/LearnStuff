@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Pressable, StyleSheet, Text, View, Button} from 'react-native';
 
-function Flashcards({navigation,vocab, setStage, containerStyle, setActivity,side, flipSide, currentIndex,guessedCorrect}) {
+function Flashcards({navigation,vocab, containerStyle,side, flipSide, currentIndex,guessedCorrect}) {
    return(
     <View style={{ ...containerStyle,justifyContent:'space-evenly' }}>
 

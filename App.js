@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import { StyleSheet} from 'react-native';
 import Home from './Home';
 import Menu from './Menu';
-import GameScreen from './GameScreen';
 import EditSets from './EditSets';
 import Login from './Login';
 import Flashcards from './Flashcards';
@@ -18,13 +17,11 @@ export default function App() {
   const [activity,setActivity] = useState('');
   const [editor,setEditor] = useState('no');
   const [vocabSets,setVocabSets] = useState([]);
-  const [loggedIn,setLoggedIn] = useState(false);
   const [user,setUser] = useState('');
   const setsRef = firebase.firestore().collection("vocabSets");
   const [message,setMessage] = useState('Guess the term!');
   const [currentIndex,setCurrentIndex] = useState(0);
   const [side,setSide] = useState('term');
-  const [stage,setStage] = useState(0);
   const [correctWords,setCorrectWords] = useState([]);
   const [incorrectWords,setIncorrectWords] = useState([]);
   const [vocab,setVocab] = useState([]);
@@ -40,8 +37,8 @@ export default function App() {
           setSide('term');
       }
       else {
-          setStage(2);
           navigation.navigate("Results");
+          setActivity('');
           
       }
   }
@@ -74,13 +71,20 @@ export default function App() {
             }
         )
   }, [vocabSet]); 
+  useEffect(() => {
+      vocab.sort((a,b) => 0.5-Math.random());
+      setCorrectWords([]);
+      setIncorrectWords([]);
+      setCurrentIndex(0);
+      setSide("term");
+  },[activity]);
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName='Login'>
         <Stack.Screen 
           name="Login" 
           options={{title:"Login"}}>
-            {(props) => <Login {...props} styles={styles} setLoggedIn={setLoggedIn} setUser={setUser}/>}
+            {(props) => <Login {...props} styles={styles} setUser={setUser}/>}
         </Stack.Screen>
         <Stack.Screen name="Home" options={{title:"Home"}}>
             {(props) => 
@@ -93,7 +97,7 @@ export default function App() {
               setVocab={setVocab}
               user={user}
               setUser={setUser}
-              setLoggedIn={setLoggedIn}/>
+              />
             }
         </Stack.Screen>
         <Stack.Screen name="EditSets" options={{title:"Editor"}}>
@@ -124,11 +128,10 @@ export default function App() {
             setActivity={setActivity}/>
           }
         </Stack.Screen>
-        <Stack.Screen name="flashcards" options = {{title:"Flashcards"}}>
+        <Stack.Screen name="Flashcards" options = {{title:"Flashcards"}}>
           {(props) => 
             <Flashcards 
               {...props}
-              setStage={setStage} 
               containerStyle={styles.container} 
               vocab={vocabSets.filter(
                 (set) => set.name.toUpperCase() === vocabSet.toUpperCase())[0].words} 
@@ -143,13 +146,12 @@ export default function App() {
             <Results {...props} containerStyle={styles.container} correctWords={correctWords} incorrectWords={incorrectWords} />
           }
         </Stack.Screen>
-        <Stack.Screen name="fill IN THE BLANK" options = {{title:"Fill in the Blank"}}>
+        <Stack.Screen name="Fill in the blank" options = {{title:"Fill in the Blank"}}>
           {(props) => 
            <FillIn
               {...props}
               message={message} 
               setMessage={setMessage} 
-              setStage={setStage} 
               containerStyle={styles.container} 
               vocab={vocab} 
               guessedCorrect={guessedCorrect} 
@@ -158,13 +160,12 @@ export default function App() {
 
           }
         </Stack.Screen>
-        <Stack.Screen name="quiz" options = {{title:"Quiz"}}>
+        <Stack.Screen name="Quiz" options = {{title:"Quiz"}}>
           {(props) => 
             <Quiz
               {...props}
               message={message} 
               containerStyle={styles.container} 
-              setStage={setStage} 
               setActivity={setActivity} 
               vocab={vocab} 
               guessedCorrect={guessedCorrect} 
@@ -177,58 +178,6 @@ export default function App() {
     </NavigationContainer>
 
   );
-  // if(!loggedIn) {
-  //   return <Login styles={styles} setLoggedIn={setLoggedIn} setUser={setUser}/>
-  // } 
-  // else if(vocabSet === '' && editor == 'no') {
-  //   return (
-  //       <Home 
-  //         styles={styles} 
-  //         setEditor={setEditor} 
-  //         vocabSets={vocabSets} 
-  //         setVocabSet={setVocabSet}
-  //         user={user}
-  //         setUser={setUser}
-  //         setLoggedIn={setLoggedIn}/>
-
-  //   );
-  // }
-  // else if(editor != 'no') {
-  //   return (
-  //     <EditSets 
-  //       styles={styles}
-  //       editor={editor} 
-  //       vocabSets={vocabSets} 
-  //       vocabSet={vocabSet} 
-  //       setEditor={setEditor} 
-  //       setVocabSet={setVocabSet} 
-  //       setsRef={setsRef} 
-  //       containerStyle={styles.container} 
-  //       user={user}/>
-  //   )
-  // }
-  // else if(activity === '') {
-  //   return (
-  //     <Menu 
-  //     setEditor={setEditor} 
-  //     containerStyle={styles.container} 
-  //     vocabSets={vocabSets} 
-  //     setsRef={setsRef} 
-  //     setVocabSet={setVocabSet} 
-  //     vocabSet={vocabSet} 
-  //     setActivity={setActivity}/>
-  //   )
-  // }
-  // else {
-  //   return (
-  //     <GameScreen 
-  //     setActivity={setActivity} 
-  //     containerStyle={styles.container} 
-  //     vocab={vocabSets.filter(
-  //       (set) => set.name.toUpperCase() === vocabSet.toUpperCase())[0].words} 
-  //     activity={activity}/>
-  //   )
-  // } 
 
 }
 

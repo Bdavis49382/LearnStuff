@@ -24,9 +24,9 @@ function Menu({navigation,vocabSets, setsRef, setActivity, containerStyle, vocab
         <Text>Select Activity</Text>
         <View style={{marginTop:10,marginBottom:10}}>
 
-        <Button title="Quiz" onPress={() => changeActivity("quiz")}/>
-        <Button title="flashcards" onPress={() => changeActivity("flashcards")}/>
-        <Button title="fill in the blank" onPress={() => changeActivity("fill in the blank")}/>
+        <Button title="Quiz" onPress={() => changeActivity("Quiz")}/>
+        <Button title="flashcards" onPress={() => changeActivity("Flashcards")}/>
+        <Button title="fill in the blank" onPress={() => changeActivity("Fill in the blank")}/>
         </View>
         <View style={{marginTop:10,marginBottom:60}}>
             <Button title="edit vocab set" color={'orange'} onPress={() => {

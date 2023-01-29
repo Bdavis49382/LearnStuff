@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Pressable, StyleSheet, Text, View, Button} from 'react-native';
-function Quiz({navigation,setStage, message, vocab, guessedCorrect, currentIndex, containerStyle}) {
+function Quiz({navigation, message, vocab, guessedCorrect, currentIndex, containerStyle}) {
     const [answers,setAnswers] = useState([]);
     useEffect(() => {
         makeAnswers()

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, Button, TextInput } from 'react-native';
-function FillIn({navigation,message, setMessage, currentIndex, containerStyle, vocab, setStage, guessedCorrect}) {
+function FillIn({navigation,message, setMessage, currentIndex, containerStyle, vocab, guessedCorrect}) {
     const [enteredText,setEnteredText] = useState('');
     useEffect(() => {
         setEnteredText('');

@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View, Button} from 'react-native';
 import { getAuth, signOut } from "firebase/auth";
-function Home({navigation,setLoggedIn,setVocab, setUser, styles, vocabSets, setVocabSet, setEditor, user}) {
+function Home({navigation,setVocab, setUser, styles, vocabSets, setVocabSet, setEditor, user}) {
     const {container, titleText, messageText} = styles;
     const changeVocabSet = (selected) => {
         // const selected =e._dispatchInstances.memoizedProps.children[0].props.children; 
@@ -13,7 +13,6 @@ function Home({navigation,setLoggedIn,setVocab, setUser, styles, vocabSets, setV
         const auth = getAuth();
         signOut(auth).then(() => {
          setUser('');
-         setLoggedIn(false);
          navigation.navigate("Login")
         }).catch((error) => {
             alert(error);
