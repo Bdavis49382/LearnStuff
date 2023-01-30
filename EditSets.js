@@ -20,8 +20,12 @@ function EditSets({navigation,vocabSets, vocabSet, user, styles, setsRef, contai
         if(name.length == 0) {
             setMessage("A name is required for your vocab set!");
         }
+        else if(words.length == 0) {
+            setMessage("Your vocab set needs terms")
+
+        }
         else if(words[0].definition == '') {
-            setMessage("Your vocab set must have at least one defined term!")
+            setMessage("Your terms need definitions!")
         }
         else {
             if(editor == 'edit') {
