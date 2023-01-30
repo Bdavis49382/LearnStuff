@@ -69,14 +69,14 @@ export default function App() {
             }
         )
   }, [vocabSet]); 
-  useEffect(() => {
-      vocab.sort((a,b) => 0.5-Math.random());
-      setCorrectWords([]);
-      setIncorrectWords([]);
-      setCurrentIndex(0);
-      setSide("term");
-      setMessage("Guess the term!");
-  },[activity]);
+  // useEffect(() => {
+  //     vocab.sort((a,b) => 0.5-Math.random());
+  //     setCorrectWords([]);
+  //     setIncorrectWords([]);
+  //     setCurrentIndex(0);
+  //     setSide("term");
+  //     setMessage("Guess the term!");
+  // },[activity]);
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName='Login'>
@@ -118,6 +118,12 @@ export default function App() {
           {(props) => 
           <Menu 
             {...props}
+            setVocab={setVocab}
+            vocab={vocab}
+            setCorrectWords={setCorrectWords}
+            setIncorrectWords={setIncorrectWords}
+            setMessage={setMessage}
+            setSide={setSide}
             setCurrentIndex={setCurrentIndex}
             setEditor={setEditor} 
             containerStyle={styles.container} 

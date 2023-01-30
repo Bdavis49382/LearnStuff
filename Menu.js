@@ -1,9 +1,15 @@
 import {Text, View, Button } from 'react-native';
 
-function Menu({navigation,vocabSets, setCurrentIndex,setsRef, setActivity, containerStyle, vocabSet, setVocabSet, setEditor}) {
+function Menu({navigation,vocab,setVocab,vocabSets, setMessage,setCorrectWords,setIncorrectWords, setSide,setCurrentIndex,setsRef, setActivity, containerStyle, vocabSet, setVocabSet, setEditor}) {
     const changeActivity = (selected) => {
         setActivity(selected);
+        vocab.sort((a,b) => 0.5-Math.random());
+        setVocab(vocab)
+        setCorrectWords([]);
+        setIncorrectWords([]);
         setCurrentIndex(0);
+        setSide("term");
+        setMessage("Guess the term!");
         navigation.navigate(selected)
     }
     const deleteSet = () => {
