@@ -27,7 +27,5 @@ I created this app using React Native in Visual Studio Code, with Expo CLI to te
 
 # Future Work
 
-* Add authentication so that users can have individual vocab sets
-* Possibly add functionality for images to be used as terms to memorize
 * Use Styles to make the app much more presentable and elegant
 * Make an activity which puts all the previous activities together in one learning mode
